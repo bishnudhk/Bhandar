@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.productImage{
+  max-width: 400px;
+  width: 100%;
+  object-fit: cover;
+}

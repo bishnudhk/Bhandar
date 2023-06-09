@@ -1,24 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Navbar, Container, Nav } from 'react-bootstrap';
+import { Outlet } from 'react-router-dom';
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className='d-flex flex-column vh-100'>
+      <header>
+        <Navbar bg='dark' variant='dark' expand="lg">
+          <Container >
+          <Navbar.Brand>Bhandar</Navbar.Brand>
+          </Container>
+          <Nav>
+            <a href="/cart" className='navLink'>Cart</a>
+            <a href="/cart" className='navLink'>Sign In</a>
+          </Nav>
+        </Navbar>
       </header>
+      <main>
+        <Container className='mt-3'>
+        <Outlet/>
+        </Container>
+      </main>
+      <footer>
+        <div className='text-center'>All right reserved</div>
+      </footer>
     </div>
   );
 }
