@@ -1,11 +1,10 @@
 import { Products } from "./types/Products";
 
-export const sampleProducts: Products[] = [
+export const sampleProducts:Products[] = [
   {
     name: "nike Slim shirt",
     slug: "nike-slim-shirt",
-   
-    image: "../public/logo192.png",
+    image: "../image/nikeShirt.jpg",
     category: "Shirts",
     brand: "Nike",
     price: 300,
@@ -19,8 +18,8 @@ export const sampleProducts: Products[] = [
   {
     name: "Adidas Fit shirt",
     slug: "adidas-fit-shirt",
-    image: "/image/AdidsShirt.jpg",
     category: "Shirts",
+    image: "../image/adidsShirt.jpg",
     brand: "Adidas",
     price: 400,
     countInStock: 10,
@@ -32,8 +31,8 @@ export const sampleProducts: Products[] = [
   {
     name: "Denim Slim pant",
     slug: "Denim-slim-shirt",
-    image: "../public/image/denimPaint.jpg",
     category: "Pant",
+    image: "../image/denimPaint.jpg",
     brand: "Denim",
     price: 1300,
     countInStock: 8,
@@ -43,4 +42,5 @@ export const sampleProducts: Products[] = [
 
   },
 ];
+
 

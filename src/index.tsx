@@ -1,12 +1,21 @@
 import React from "react";
+import axios from "axios";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+  Route,
+} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
+
+axios.defaults.baseURL =
+process.env.NODE_ENV === "development" ? "http://localhost:4000" : "/"
 
 const router = createBrowserRouter([
   {
@@ -18,13 +27,23 @@ const router = createBrowserRouter([
         index: true,
         element: <HomePage />,
       },
+      {
+        path: "/product/:slag" ,
+        element: <ProductPage />,
+      },
     ],
+    
   },
-  {
-    path: "/product/:slag" ,
-    element: <ProductPage/>
-  },
+  
 ]);
+// const router = createBrowserRouter(
+//   createRoutesFromElements(
+//     <Route path="/" element={<App />}>
+//       <Route index={true} element={<HomePage />} />
+//       <Route path="/product/:slug" element={<ProductPage />} />
+//     </Route>
+//   )
+// );
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

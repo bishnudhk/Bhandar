@@ -12,7 +12,9 @@ code {
     monospace;
 }
 .productImage{
-  max-width: 400px;
+  max-width: 100%;
+  height: auto;
+  display: block;
   width: 100%;
   object-fit: cover;
 }
