@@ -18,3 +18,10 @@ code {
   width: 100%;
   object-fit: cover;
 }
+
+.rating span {
+  color: gold;
+}
+img.large{
+  max-width: 100%;
+}
