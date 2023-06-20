@@ -17,6 +17,8 @@ import { HelmetProvider } from "react-helmet-async";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { StoreProvider } from "./Store";
+import CartPage from "./pages/CartPage";
+import axios from "axios";
 
 // axios.defaults.baseURL =
 // process.env.NODE_ENV === "development" ? "http://localhost:4000" : "/"
@@ -32,10 +34,15 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/product/:slag",
+        path: "/product/:slug",
         element: <ProductPage />,
       },
+      {
+        path: "cart",
+        element: <CartPage />,
+      },
     ],
+    
   },
 ]);
 // const router = createBrowserRouter(
@@ -43,6 +50,7 @@ const router = createBrowserRouter([
 //     <Route path="/" element={<App />}>
 //       <Route index={true} element={<HomePage />} />
 //       <Route path="/product/:slug" element={<ProductPage />} />
+{/* <Route path="cart" element={<CartPage />} /> */}
 //     </Route>
 //   )
 // );

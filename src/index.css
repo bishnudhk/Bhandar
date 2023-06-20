@@ -25,3 +25,12 @@ code {
 img.large{
   max-width: 100%;
 }
+.heading{
+  text-decoration: none;
+  font-size: 30px;
+  margin-right: 120px;
+}
+
+img.thumbnail{
+  height: 80px;
+}

@@ -1,81 +1,112 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Helmet } from "react-helmet-async";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetProductDetailsBySlugQuery } from "../hooks/ProductHooks";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
-import { getError } from "../util";
+import { convertProductToCartItem, getError } from "../util";
 import { ApiError } from "../types/ApiError";
 import { Badge, Button, Card, Col, ListGroup, Row } from "react-bootstrap";
 import Rating from "../components/Rating";
+import { Store } from "../Store";
+// import  toast  from "react-toastify";
+import { useToasts } from "react-toast-notifications";
 
 function ProductPage() {
   const params = useParams();
   const { slug } = params;
   const {
-    data: products,
+    data: product,
     isLoading,
     error,
-  } = useGetProductDetailsBySlugQuery(slug!);
+  } = useGetProductDetailsBySlugQuery(slug);
+  // console.log(product);
+
+  const { state, dispatch } = useContext(Store);
+  const { cart } = state;
+
+  const navigate = useNavigate();
+
+  const { addToast } = useToasts();
+  const addToCartHandler = () => {
+    const existItem = cart.cartItems.find((x) => x._id === product!.id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+    if (product!.countInStock < quantity) {
+      // toast.warn("sorry Product is out of stock");
+      addToast("Sorry, Product is out of stock", { appearance: "warning" });
+    }
+    dispatch({
+      type: "CART_ADD_ITEM",
+      payload: { ...convertProductToCartItem(product!), quantity },
+    });
+    addToast("Product added to the cart", { appearance: "success" });
+    navigate("/cart");
+  };
 
   return isLoading ? (
     <LoadingBox />
   ) : error ? (
     <MessageBox variant="danger">{getError(error as ApiError)} </MessageBox>
-  ) : !products ? (
+  ) : !product ? (
     <MessageBox variant="danger">Product Not Found</MessageBox>
   ) : (
     <div>
-      {/* <Helmet>
+      <Helmet>
         <title>Product page</title>
-      </Helmet> */}
+      </Helmet>
       <Row>
         <Col md={6}>
-          <img className="large" src={products.image} alt={products.name} />
+          <img className="large" src={product.image} alt={product.name} />
         </Col>
         <Col md={3}>
           <ListGroup.Item>
             <Helmet>
-              <title>{products.name}</title>
+              <title>{product.name}</title>
             </Helmet>
           </ListGroup.Item>
           <ListGroup.Item>
             <Rating
-              rating={products.rating}
-              numReviews={products.numReviews}
+              rating={product.rating}
+              numReviews={product.numReviews}
             ></Rating>
           </ListGroup.Item>
-          <ListGroup.Item>Price : ${products.price}</ListGroup.Item>
-          <ListGroup.Item>Description :<p> {products.description}</p></ListGroup.Item>
+          <ListGroup.Item>Price : ${product.price}</ListGroup.Item>
+          <ListGroup.Item>
+            Description :<p> {product.description}</p>
+          </ListGroup.Item>
         </Col>
         <Col md={3}>
           <Card>
             <Card.Body>
               <ListGroup variant="flush">
                 <ListGroup.Item>
-                    <Row>
-                      <Col>Price:</Col>
-                      <Col>${products.price}</Col>
-                    </Row>
+                  <Row>
+                    <Col>Price:</Col>
+                    <Col>${product.price}</Col>
+                  </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Status:</Col>
                     <Col>
-                    {products.countInStock > 0 ?(
-                      <Badge bg="success">In Stock</Badge>
-                    ) : (
-                      <Badge bg="danger">Unavailable</Badge>
-                    )}</Col>
+                      {product.countInStock > 0 ? (
+                        <Badge bg="success">In Stock</Badge>
+                      ) : (
+                        <Badge bg="danger">Unavailable</Badge>
+                      )}
+                    </Col>
                   </Row>
                 </ListGroup.Item>
-                {products.countInStock > 0 && (
-                  <ListGroup.Item>
-                    <div className="d-grid">
-                      <Button variant="primary">Add to Cart</Button>
-                    </div>
-                  </ListGroup.Item>
-                )}
+                {product.countInStock > 0 && (
+
+                <ListGroup.Item>
+                  <div className="d-grid">
+                    <Button onClick={addToCartHandler} variant="primary">
+                      Add to Cart
+                    </Button>
+                  </div>
+                </ListGroup.Item>
+                 )} 
               </ListGroup>
             </Card.Body>
           </Card>

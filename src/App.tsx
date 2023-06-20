@@ -3,6 +3,11 @@ import './App.css';
 import { Navbar, Container, Nav, Button, Badge } from 'react-bootstrap';
 import { Link, Outlet } from 'react-router-dom';
 import { Store } from './Store';
+import "react-toastify/dist/ReactToastify.css"
+// import { ToastContainer } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
+// import {LinkContainer} from "react-router-bootstrap"
+import { ToastProvider } from 'react-toast-notifications';
 
 function App() {
   const {
@@ -19,10 +24,21 @@ function App() {
  }
   return (
     <div className='d-flex flex-column vh-100'>
-      <header>
+      {/* <ToastContainer position='bottom-center' limit={1} /> */}
+      <ToastProvider
+      autoDismiss
+      autoDismissTimeout={3000}
+      placement="bottom-center"
+      // limit={1}
+    >
+      {/* Your application components */}
+    
+      <header> 
         <Navbar  expand="lg">
           <Container >
-          <Navbar.Brand>Bhandar</Navbar.Brand>
+            <Link to="/" className='heading'>Bhandar</Link>
+            {/* <LinkContainer></LinkContainer> */}
+          {/* <Navbar.Brand>Bhandar</Navbar.Brand> */}
           </Container>
           <Nav>
             <Button variant={mode} onClick={switchModeHandler}>
@@ -48,6 +64,7 @@ function App() {
       <footer>
         <div className='text-center'>All right reserved</div>
       </footer>
+      </ToastProvider>
     </div>
   );
 }
