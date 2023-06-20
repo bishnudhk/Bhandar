@@ -5,12 +5,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  RouterProvider,
-  Route,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
 import { HelmetProvider } from "react-helmet-async";
@@ -18,7 +13,9 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { StoreProvider } from "./Store";
 import CartPage from "./pages/CartPage";
-import axios from "axios";
+import SigninPage from "./pages/SigninPage";
+import SignupPage from "./pages/SignupPage";
+import ShippingAddressPage from "./pages/ShippingAddressPage";
 
 // axios.defaults.baseURL =
 // process.env.NODE_ENV === "development" ? "http://localhost:4000" : "/"
@@ -38,11 +35,22 @@ const router = createBrowserRouter([
         element: <ProductPage />,
       },
       {
-        path: "cart",
+        path: "/cart",
         element: <CartPage />,
       },
+      {
+        path: "/signin",
+        element: <SigninPage />,
+      },
+      {
+        path: "/signup",
+        element: <SignupPage />,
+      },
+      {
+        path: "/shipping",
+        element: <ShippingAddressPage />,
+      },
     ],
-    
   },
 ]);
 // const router = createBrowserRouter(
@@ -50,7 +58,9 @@ const router = createBrowserRouter([
 //     <Route path="/" element={<App />}>
 //       <Route index={true} element={<HomePage />} />
 //       <Route path="/product/:slug" element={<ProductPage />} />
-{/* <Route path="cart" element={<CartPage />} /> */}
+// {
+  /* <Route path="cart" element={<CartPage />} /> */
+// }
 //     </Route>
 //   )
 // );

@@ -1,30 +1,31 @@
-import { useContext, useEffect, useState } from 'react'
-import { Button, Container, Form } from 'react-bootstrap'
-import { Helmet } from 'react-helmet-async'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import LoadingBox from '../components/LoadingBox'
+import React from "react";
+import { useContext, useEffect, useState } from "react";
+import { Button, Container, Form } from "react-bootstrap";
+import { Helmet } from "react-helmet-async";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+// import LoadingBox from '../components/LoadingBox'
 // import { useSigninMutation } from '../hooks/userHooks'
-import { Store } from '../Store'
-import { ApiError } from '../types/ApiError'
+import { Store } from "../Store";
+// import { ApiError } from '../types/ApiError'
 // import { getError } from '../utils'
 
 export default function SigninPage() {
-  const navigate = useNavigate()
-  const { search } = useLocation()
-  const redirectInUrl = new URLSearchParams(search).get('redirect')
-  const redirect = redirectInUrl ? redirectInUrl : '/'
+  const navigate = useNavigate();
+  const { search } = useLocation();
+  const redirectInUrl = new URLSearchParams(search).get("redirect");
+  const redirect = redirectInUrl ? redirectInUrl : "/";
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const { state, dispatch } = useContext(Store)
-//   const { userInfo } = state
+  const { state, dispatch } = useContext(Store);
+  const { userInfo } = state;
 
-//   const { mutateAsync: signin, isLoading } = useSigninMutation()
+  // const { mutateAsync: signin, isLoading } = useSigninMutation()
 
   const submitHandler = async (e: React.SyntheticEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     // try {
     //   const data = await signin({
     //     email,
@@ -36,14 +37,14 @@ export default function SigninPage() {
     // } catch (err) {
     //   toast.error(getError(err as ApiError))
     // }
-//   }
+    //   }
 
-//   useEffect(() => {
-//     if (userInfo) {
-//       navigate(redirect)
-//     }
-//   }, [navigate, redirect, userInfo])
-
+      // useEffect(() => {
+      //   if (userInfo) {
+      //     navigate(redirect)
+      //   }
+      // }, [navigate, redirect, userInfo])
+  };
   return (
     <Container className="small-container">
       <Helmet>
@@ -68,17 +69,14 @@ export default function SigninPage() {
           />
         </Form.Group>
         <div className="mb-3">
-          <Button type="submit">
-            Sign In
-          </Button>
+          <Button type="submit">Sign In</Button>
           {/* {isLoading && <LoadingBox />} */}
         </div>
         <div className="mb-3">
-          New customer?{' '}
+          New customer?{" "}
           <Link to={`/signup?redirect=${redirect}`}>Create your account</Link>
         </div>
       </Form>
     </Container>
-  )
-
-}}
+  );
+}
