@@ -28,25 +28,25 @@ export default function ShippingAddressPage() {
 
   const submitHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
-  //   dispatch({
-  //     type: "SAVE_SHIPPING_ADDRESS",
-  //     payload: {
-  //       fullName,
-  //       address,
-  //       city,
-  //       postalCode,
-  //       country,
-  //     },
-  //   })
-  //   localStorage.setItem("shippingAddress", JSON.stringify({
-  //     fullName,
-  //     address,
-  //     city,
-  //     postalCode,
-  //     country,
-  //   }))
+    dispatch({
+      type: "SAVE_SHIPPING_ADDRESS",
+      payload: {
+        fullName,
+        address,
+        city,
+        postalCode,
+        country,
+      },
+    })
+    localStorage.setItem("shippingAddress", JSON.stringify({
+      fullName,
+      address,
+      city,
+      postalCode,
+      country,
+    }))
 
-  //   navigate("/payment")
+    navigate("/payment")
   }
   
   return(

@@ -11,7 +11,7 @@ import { useGetProductQuery } from "../hooks/ProductHooks";
 
 function HomePage() {
   const { data: products, isLoading, error } = useGetProductQuery();
-  console.log(products);
+  // console.log(products);
 
   return isLoading ? (
     <LoadingBox />

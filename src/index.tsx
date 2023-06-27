@@ -5,7 +5,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider,Route, createRoutesFromElements } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
 import { HelmetProvider } from "react-helmet-async";
@@ -16,54 +16,77 @@ import CartPage from "./pages/CartPage";
 import SigninPage from "./pages/SigninPage";
 import SignupPage from "./pages/SignupPage";
 import ShippingAddressPage from "./pages/ShippingAddressPage";
+import PaymentMethodPage from "./pages/PaymentMethodPage";
+import PlaceOrderPage from "./pages/PlaceOrderPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 // axios.defaults.baseURL =
 // process.env.NODE_ENV === "development" ? "http://localhost:4000" : "/"
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <App />,
 
-    children: [
-      {
-        index: true,
-        element: <HomePage />,
-      },
-      {
-        path: "/product/:slug",
-        element: <ProductPage />,
-      },
-      {
-        path: "/cart",
-        element: <CartPage />,
-      },
-      {
-        path: "/signin",
-        element: <SigninPage />,
-      },
-      {
-        path: "/signup",
-        element: <SignupPage />,
-      },
-      {
-        path: "/shipping",
-        element: <ShippingAddressPage />,
-      },
-    ],
-  },
-]);
-// const router = createBrowserRouter(
-//   createRoutesFromElements(
-//     <Route path="/" element={<App />}>
-//       <Route index={true} element={<HomePage />} />
-//       <Route path="/product/:slug" element={<ProductPage />} />
-// {
-  /* <Route path="cart" element={<CartPage />} /> */
-// }
-//     </Route>
-//   )
-// );
+//     children: [
+//       {
+//         index: true,
+//         element: <HomePage />,
+//       },
+//       {
+//         path: "/product/:slug",
+//         element: <ProductPage />,
+//       },
+//       {
+//         path: "/cart",
+//         element: <CartPage />,
+//       },
+//       {
+//         path: "/signin",
+//         element: <SigninPage />,
+//       },
+//       {
+//         path: "/signup",
+//         element: <SignupPage />,
+//       },
+     
+        
+//       {
+//         path: "/shipping",
+//         element: <ShippingAddressPage />,
+//       },
+//       {
+//         path: "/payment",
+//         element: <PaymentMethodPage />,
+//       },
+//     ] },
+//       {
+//         path: "/placeorder",
+//         element: <PlaceOrderPage />,
+//       },
+      
+    
+// // ]);
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<App />}>
+      <Route index={true} element={<HomePage />} />
+      <Route path="product/:slug" element={<ProductPage />} />
+      <Route path="cart" element={<CartPage />} />
+      <Route path="signin" element={<SigninPage />} />
+      <Route path="signup" element={<SignupPage />} />
+      <Route path="" element={<ProtectedRoute />}>
+        <Route path="shipping" element={<ShippingAddressPage />} />
+        <Route path="payment" element={<PaymentMethodPage />} />
+        <Route path="placeorder" element={<PlaceOrderPage />} />
+       
+      </Route>
+
+     
+    </Route>
+  )
+)
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

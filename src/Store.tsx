@@ -2,6 +2,7 @@ import React from "react";
 import { Cart, CartItem, ShippingAddress } from "./types/Cart";
 import { UserInfo } from "./types/UserInfo";
 
+
 type AppState = {
   mode: string;
   cart: Cart;
@@ -43,11 +44,14 @@ type Action =
   | { type: "CART_REMOVE_ITEM"; payload: CartItem }
   | { type: "USER_SIGNIN"; payload: UserInfo }
   | { type: "USER_SIGNOUT" }
-  | {type: "SAVE_SHIPPING_ADDRESS"; payload: ShippingAddress};
+  | { type: "SAVE_SHIPPING_ADDRESS"; payload: ShippingAddress }
+  | { type: "SAVE_PAYMENT_METHOD"; payload: string };
 
 function reducer(state: AppState, action: Action): AppState {
+  // console.log(state);
   switch (action.type) {
     case "SWITCH_MODE":
+      localStorage.setItem("mode", state.mode === "dark" ? "light" : "dark");
       return { ...state, mode: state.mode === "dark" ? "light" : "dark" };
     case "CART_ADD_ITEM":
       const newItem = action.payload;
@@ -71,6 +75,7 @@ function reducer(state: AppState, action: Action): AppState {
     }
 
     case "USER_SIGNIN": {
+      
       return { ...state, userInfo: action.payload };
     }
     case "USER_SIGNOUT": {
@@ -100,15 +105,19 @@ function reducer(state: AppState, action: Action): AppState {
       };
     }
     case "SAVE_SHIPPING_ADDRESS":
-      return{
+      return {
         ...state,
-        cart:{
+        cart: {
           ...state.cart,
-          shippingAddress: action.payload
-        }
-      }
+          shippingAddress: action.payload,
+        },
+      };
 
-
+    case "SAVE_PAYMENT_METHOD":
+      return {
+        ...state,
+        cart: { ...state.cart, paymentMethod: action.payload },
+      };
     default:
       return state;
   }
